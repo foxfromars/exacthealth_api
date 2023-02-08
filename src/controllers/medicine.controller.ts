@@ -1,10 +1,10 @@
-import userService from "../services/user.service.js";
+import medicineService from "../services/medicine.service.js";
 import { ParseResponse } from "../utils/requestUtils.js";
 
-class UserController {
+class MedicineController {
   async getAll(_, res) {
     try {
-      const response = await userService.getAll();
+      const response = await medicineService.getAll();
       res.json(response);
     }
     catch (err) {
@@ -14,8 +14,8 @@ class UserController {
 
   async getOne(req, res) {
     try {
-      if (!req.params.id) throw new Error("Missing id");
-      const response = await userService.getOne(req.params.id)
+      if (!req.params) throw new Error("Missing ID");
+      const response = await medicineService.getOne(req.params.id);
       res.json(response);
     }
     catch (err) {
@@ -25,9 +25,8 @@ class UserController {
 
   async post(req, res) {
     try {
-      console.log(req.body);
-      if (!req.body) throw new Error("Missing Data");
-      const response = await userService.post(req.body);
+      if (!req.body) throw new Error("Missing data");
+      const response = await medicineService.post(req.body);
       res.json(response);
     }
     catch (err) {
@@ -37,8 +36,8 @@ class UserController {
 
   async update(req, res) {
     try {
-      if (!req.body || !req.params) throw new Error("Missing Data");
-      const response = await userService.update(req.params.id, req.body);
+      if (!req.params || !req.body) throw new Error("Missing data");
+      const response = await medicineService.update(req.params.id, req.body);
       res.json(response);
     }
     catch (err) {
@@ -48,8 +47,8 @@ class UserController {
 
   async delete(req, res) {
     try {
-      if (!req.params.id) throw new Error("Missing ID");
-      const response = await userService.delete(req.params.id);
+      if (!req.params) throw new Error("Missing ID");
+      const response = await medicineService.delete(req.params.id);
       res.json(response);
     }
     catch (err) {
@@ -58,4 +57,4 @@ class UserController {
   }
 }
 
-export default new UserController();
+export default new MedicineController();

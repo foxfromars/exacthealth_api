@@ -1,10 +1,10 @@
-import * as database from "../models/index.cjs";
 import { ParseResponse } from "../utils/requestUtils.js";
+import * as database from "../models/index.cjs";
 
-class UserService {
+class MedicineController {
   async getAll() {
     try {
-      const response = await database.default.User.findAll();
+      const response = await database.default.Medicine.findAll();
       return new ParseResponse(true, response);
     }
     catch (err) {
@@ -14,11 +14,10 @@ class UserService {
 
   async getOne(id: number) {
     try {
-      if (!id) throw new Error("Missing Id");
-      const response = await database.default.User.findOne({
+      const response = await database.default.Medicine.findOne({
         where: {
-          id
-        },
+          id,
+        }
       });
       return new ParseResponse(true, response);
     }
@@ -29,8 +28,7 @@ class UserService {
 
   async post(data: object) {
     try {
-      if (!data) throw new Error("Missing Data");
-      await database.default.User.create(data);
+      await database.default.Medicine.create(data);
       return new ParseResponse(true, "Data insert with success");
     }
     catch (err) {
@@ -40,8 +38,11 @@ class UserService {
 
   async update(id: number, data: object) {
     try {
-      if (!data) throw new Error("Missing Data");
-      await database.default.User.update({ ...data });
+      await database.default.Medicine.update(data, {
+        where: {
+          id,
+        }
+      })
       return new ParseResponse(true, "Data updated with success");
     }
     catch (err) {
@@ -49,12 +50,11 @@ class UserService {
     }
   }
 
-  async delete(id: number) {
+  async delete(id) {
     try {
-      if (!id) throw new Error("Missing Id");
-      await database.default.User.destroy({
+      await database.default.Medicine.destroy({
         where: {
-          id
+          id,
         }
       })
       return new ParseResponse(true, "Data deleted with success");
@@ -65,4 +65,4 @@ class UserService {
   }
 }
 
-export default new UserService();
+export default new MedicineController();
