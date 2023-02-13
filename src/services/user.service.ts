@@ -8,6 +8,7 @@ class UserService {
       return new ParseResponse(true, response);
     }
     catch (err) {
+      console.log(err);
       return new ParseResponse(false, err.message);
     }
   }

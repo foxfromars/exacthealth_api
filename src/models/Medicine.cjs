@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'User'
+    modelName: 'Medicine'
   });
   return Medicine;
 }
