@@ -5,7 +5,7 @@ class TokenController {
     try {
       if(!req.headers["authorization"]) throw new Error("Missing Authorization Token");
       const token = req.headers["authorization"]).split(" ")[1];
-      const result = await tokenService.get();
+      const result = await tokenService.validate(token);
       res.json(result);
     }
     catch (err) {
@@ -16,7 +16,7 @@ class TokenController {
   async post(req, res) {
     try {
       if (!req.body.username || !req.body.password) throw new Error("Missing Credentials");
-      const response = await tokenService.post(req.body);
+      const response = await tokenService.create(req.body);
       res.json(response);
     }
     catch (err) {
@@ -25,3 +25,5 @@ class TokenController {
     }
   }
 }
+
+export default new TokenController();
