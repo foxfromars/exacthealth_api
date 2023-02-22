@@ -35,6 +35,7 @@ class UserService {
       return new ParseResponse(true, "Data insert with success");
     }
     catch (err) {
+      console.log(err);
       return new ParseResponse(false, err.message);
     }
   }
