@@ -22,8 +22,7 @@ class TokenController {
       res.json(response);
     }
     catch (err) {
-      console.log(err);
-      res.status(500).json(new ParseResponse(false, err.message));
+      res.status(err?.code ? err.code : 500).json(new ParseResponse(false, err.message));
     }
   }
 }

@@ -25,7 +25,8 @@ class MedicineController {
 
   async post(req, res) {
     try {
-      if (!req.body) throw new Error("Missing data");
+      const userData = req.userData;
+      if (!req.body) throw new Error("Missing data body");
       const response = await medicineService.post(req.body);
       res.json(response);
     }

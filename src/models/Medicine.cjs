@@ -11,9 +11,25 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        Model: "Users",
+        key: "id",
+      }
+    },
   }, {
     sequelize,
     modelName: 'Medicine'
   });
+
+  Medicine.associate = models => {
+    Medicine.belongsTo(models.User, {
+      foreignKey: {
+        name: "roleId",
+      }
+    })
+  }
+
   return Medicine;
 }
