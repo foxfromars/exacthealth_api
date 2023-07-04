@@ -25,12 +25,13 @@ class MedicineController {
 
   async post(req, res) {
     try {
-      const userData = req.userData;
+      const userData = req.user;
       if (!req.body) throw new Error("Missing data body");
-      const response = await medicineService.post(req.body);
+      const response = await medicineService.post(req.body, userData);
       res.json(response);
     }
     catch (err) {
+      console.log(err);
       res.status(500).json(new ParseResponse(false, err.message));
     }
   }

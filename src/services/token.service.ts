@@ -12,15 +12,10 @@ type userData = {
 
 class TokenService {
   async validate(token: string) {
-    try {
-      const secretKey = process.env.JWT_SECRET_KEY as string;
-      jwt.verify(token, secretKey);
-      return new ParseResponse(true, "The token is valid");
-    }
-    catch (err) {
-      console.log(err);
-      return new ParseResponse(false, err.message);
-    }
+    const secretKey = process.env.JWT_SECRET_KEY as string;
+    jwt.verify(token, secretKey);
+    const username = jwt.decode(token);
+    return new ParseResponse(true, username);
   }
 
   async create(data: userData) {
